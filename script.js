@@ -10,3 +10,27 @@ function getPostTitle(id) {
             .catch((err) => reject(err.message));
     });
 }
+
+getPostTitle(1).then(console.log).catch(console.error);
+
+// 🏆 SNACK 1 - BONUS
+function getPost(id) {
+    return fetch(`https://dummyjson.com/posts/${id}`)
+        .then((res) => {
+            if (!res.ok) throw new Error("Post non trovato");
+            return res.json();
+        })
+        .then((post) => {
+            return fetch(`https://dummyjson.com/users/${post.userId}`)
+                .then((res) => {
+                    if (!res.ok) throw new Error("Utente non trovato");
+                    return res.json();
+                })
+                .then((user) => {
+                    post.user = user;
+                    return post;
+                });
+        });
+}
+
+getPost(1).then(console.log).catch(console.error);
