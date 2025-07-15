@@ -51,3 +51,29 @@ function lanciaDado() {
 }
 
 lanciaDado().then(console.log).catch(console.error);
+
+// 🏆 SNACK 2 - BONUS
+function creaLanciaDado() {
+    let ultimoLancio = null;
+
+    return function () {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const isBloccato = Math.random() < 0.2;
+                if (isBloccato) {
+                    reject("Il dado si è incastrato!");
+                } else {
+                    const numero = Math.floor(Math.random() * 6) + 1;
+                    if (numero === ultimoLancio) {
+                        console.log("Incredibile! Stesso numero due volte di fila:", numero);
+                    }
+                    ultimoLancio = numero;
+                    resolve(numero);
+                }
+            }, 3000);
+        });
+    };
+}
+
+const lancia = creaLanciaDado();
+lancia().then(console.log).catch(console.error);  // ripetere più volte per test
