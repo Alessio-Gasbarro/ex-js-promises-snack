@@ -34,3 +34,20 @@ function getPost(id) {
 }
 
 getPost(1).then(console.log).catch(console.error);
+
+// 🏆 SNACK 2
+function lanciaDado() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const isBloccato = Math.random() < 0.2;
+            if (isBloccato) {
+                reject("Il dado si è incastrato!");
+            } else {
+                const numero = Math.floor(Math.random() * 6) + 1;
+                resolve(numero);
+            }
+        }, 3000);
+    });
+}
+
+lanciaDado().then(console.log).catch(console.error);
